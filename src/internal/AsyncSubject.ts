@@ -13,7 +13,7 @@ export class AsyncSubject<T> extends Subject<T> {
   private _isComplete = false;
 
   /** @internal */
-  protected _checkFinalizedStatuses(subscriber: Subscriber<T>) {
+  protected override _checkFinalizedStatuses(subscriber: Subscriber<T>) {
     const { hasError, _hasValue, _value, thrownError, isStopped, _isComplete } = this;
     if (hasError) {
       subscriber.error(thrownError);
@@ -23,14 +23,14 @@ export class AsyncSubject<T> extends Subject<T> {
     }
   }
 
-  next(value: T): void {
+  override next(value: T): void {
     if (!this.isStopped) {
       this._value = value;
       this._hasValue = true;
     }
   }
 
-  complete(): void {
+  override complete(): void {
     const { _hasValue, _value, _isComplete } = this;
     if (!_isComplete) {
       this._isComplete = true;

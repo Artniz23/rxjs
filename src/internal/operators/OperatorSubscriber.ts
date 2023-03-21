@@ -101,7 +101,7 @@ export class OperatorSubscriber<T> extends Subscriber<T> {
       : super._complete;
   }
 
-  unsubscribe() {
+  override unsubscribe() {
     if (!this.shouldUnsubscribe || this.shouldUnsubscribe()) {
       const { closed } = this;
       super.unsubscribe();

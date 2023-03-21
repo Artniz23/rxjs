@@ -17,7 +17,7 @@ export class AsyncAction<T> extends Action<T> {
     super(scheduler, work);
   }
 
-  public schedule(state?: T, delay: number = 0): Subscription {
+  public override schedule(state?: T, delay: number = 0): Subscription {
     if (this.closed) {
       return this;
     }
@@ -131,7 +131,7 @@ export class AsyncAction<T> extends Action<T> {
     }
   }
 
-  unsubscribe() {
+  override unsubscribe() {
     if (!this.closed) {
       const { id, scheduler } = this;
       const { actions } = scheduler;

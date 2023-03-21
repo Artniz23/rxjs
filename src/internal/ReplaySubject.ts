@@ -55,7 +55,7 @@ export class ReplaySubject<T> extends Subject<T> {
     this._windowTime = Math.max(1, _windowTime);
   }
 
-  next(value: T): void {
+  override next(value: T): void {
     const { isStopped, _buffer, _infiniteTimeWindow, _timestampProvider, _windowTime } = this;
     if (!isStopped) {
       _buffer.push(value);
@@ -66,7 +66,7 @@ export class ReplaySubject<T> extends Subject<T> {
   }
 
   /** @internal */
-  protected _subscribe(subscriber: Subscriber<T>): Subscription {
+  protected override _subscribe(subscriber: Subscriber<T>): Subscription {
     this._throwIfClosed();
     this._trimBuffer();
 

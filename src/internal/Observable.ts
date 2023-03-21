@@ -169,7 +169,8 @@ export class Observable<T> implements Subscribable<T> {
   /** @internal */
   protected _trySubscribe(sink: Subscriber<T>): TeardownLogic {
     try {
-      return this._subscribe(sink);
+      const sub = this._subscribe(sink);
+      return sub;
     } catch (err) {
       // We don't need to return anything in this case,
       // because it's just going to try to `add()` to a subscription

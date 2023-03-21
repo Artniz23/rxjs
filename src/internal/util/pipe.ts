@@ -73,7 +73,7 @@ export function pipe<T, A, B, C, D, E, F, G, H, I>(
  * pipe() can be called on one or more functions, each of which can take one argument ("UnaryFunction")
  * and uses it to return a value.
  * It returns a function that takes one argument, passes it to the first UnaryFunction, and then
- * passes the result to the next one, passes that result to the next one, and so on.  
+ * passes the result to the next one, passes that result to the next one, and so on.
  */
 export function pipe(...fns: Array<UnaryFunction<any, any>>): UnaryFunction<any, any> {
   return pipeFromArray(fns);
@@ -90,6 +90,13 @@ export function pipeFromArray<T, R>(fns: Array<UnaryFunction<T, R>>): UnaryFunct
   }
 
   return function piped(input: T): R {
-    return fns.reduce((prev: any, fn: UnaryFunction<T, R>) => fn(prev), input as any);
+    const elements = fns.reduce((prev: any, fn: UnaryFunction<T, R>) => {
+      console.log('input', input);
+      return fn(prev);
+    }, input as any);
+
+    console.log('elements', elements);
+
+    return elements;
   };
 }

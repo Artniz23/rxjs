@@ -93,13 +93,13 @@ export class Subject<T> extends Observable<T> implements SubscriptionLike {
   }
 
   /** @internal */
-  protected _trySubscribe(subscriber: Subscriber<T>): TeardownLogic {
+  protected override _trySubscribe(subscriber: Subscriber<T>): TeardownLogic {
     this._throwIfClosed();
     return super._trySubscribe(subscriber);
   }
 
   /** @internal */
-  protected _subscribe(subscriber: Subscriber<T>): Subscription {
+  protected override _subscribe(subscriber: Subscriber<T>): Subscription {
     // this._throwIfClosed();
     this._checkFinalizedStatuses(subscriber);
     return this._innerSubscribe(subscriber);
@@ -153,20 +153,20 @@ export class AnonymousSubject<T> extends Subject<T> {
     super();
   }
 
-  next(value: T) {
+  override next(value: T) {
     this.destination?.next?.(value);
   }
 
-  error(err: any) {
+  override error(err: any) {
     this.destination?.error?.(err);
   }
 
-  complete() {
+  override complete() {
     this.destination?.complete?.();
   }
 
   /** @internal */
-  protected _subscribe(subscriber: Subscriber<T>): Subscription {
+  protected override _subscribe(subscriber: Subscriber<T>): Subscription {
     return this._source?.subscribe(subscriber) ?? Subscription.EMPTY;
   }
 }

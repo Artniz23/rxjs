@@ -102,6 +102,7 @@ export class Subscription implements SubscriptionLike {
    * @param teardown The finalization logic to add to this subscription.
    */
   add(teardown: TeardownLogic): void {
+    console.log('add', teardown);
     // Only add the finalizer if it's not undefined
     // and don't add a subscription to itself.
     if (teardown && teardown !== this) {
@@ -149,6 +150,7 @@ export class Subscription implements SubscriptionLike {
 }
 
 function execFinalizer(finalizer: Unsubscribable | (() => void)) {
+  console.log('final', finalizer);
   if (isFunction(finalizer)) {
     finalizer();
   } else {
