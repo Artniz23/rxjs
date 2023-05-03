@@ -11,6 +11,7 @@ export function operate<T, R>(
   init: (liftedSource: Observable<T>, subscriber: Subscriber<R>) => (() => void) | void
 ): OperatorFunction<T, R> {
   return (source: Observable<T>) => {
+    console.log('source lift', source);
     return new Observable((subscriber) => {
       const initel = init(source, subscriber);
 

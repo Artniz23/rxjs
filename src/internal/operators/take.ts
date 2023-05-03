@@ -53,8 +53,10 @@ export function take<T>(count: number): MonoTypeOperatorFunction<T> {
         let seen = 0;
         const operatorSubscriber = createOperatorSubscriber<T>(subscriber, (value) => {
           if (++seen < count) {
+            console.log('< count')
             subscriber.next(value);
           } else {
+            console.log('>= count')
             operatorSubscriber.unsubscribe();
             subscriber.next(value);
             subscriber.complete();

@@ -91,11 +91,8 @@ export function pipeFromArray<T, R>(fns: Array<UnaryFunction<T, R>>): UnaryFunct
 
   return function piped(input: T): R {
     const elements = fns.reduce((prev: any, fn: UnaryFunction<T, R>) => {
-      console.log('input', input);
       return fn(prev);
     }, input as any);
-
-    console.log('elements', elements);
 
     return elements;
   };

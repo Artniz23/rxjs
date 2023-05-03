@@ -266,6 +266,7 @@ function ajaxGetJSON<T>(url: string, headers?: Record<string, string>): Observab
  * ```
  */
 export const ajax: AjaxCreationMethod = (() => {
+  console.log('call');
   const create = <T>(urlOrConfig: string | AjaxConfig) => {
     const config: AjaxConfig =
       typeof urlOrConfig === 'string'

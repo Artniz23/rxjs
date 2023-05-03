@@ -85,7 +85,11 @@ export function debounceTime<T>(dueTime: number, scheduler: SchedulerLike = asyn
       // but we might have received new values during this window!
 
       const targetTime = lastTime! + dueTime;
+
       const now = scheduler.now();
+
+      console.log('targetTime', targetTime);
+      console.log('now', now);
       if (now < targetTime) {
         // On that case, re-schedule to the new target
         activeTask = this.schedule(undefined, targetTime - now);
@@ -93,6 +97,7 @@ export function debounceTime<T>(dueTime: number, scheduler: SchedulerLike = asyn
         return;
       }
 
+      console.log('emit');
       emit();
     }
 
@@ -100,6 +105,7 @@ export function debounceTime<T>(dueTime: number, scheduler: SchedulerLike = asyn
       createOperatorSubscriber(
         subscriber,
         (value: T) => {
+          console.log('next', value);
           lastValue = value;
           lastTime = scheduler.now();
 
@@ -109,6 +115,7 @@ export function debounceTime<T>(dueTime: number, scheduler: SchedulerLike = asyn
             activeTask = scheduler.schedule(emitWhenIdle, dueTime);
             scheduling = false;
             // Set activeTask as intermediary Subscription to handle synchronous schedulers
+            console.log('activeTask', activeTask);
             subscriber.add(activeTask);
           }
         },

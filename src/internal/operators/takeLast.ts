@@ -62,6 +62,7 @@ export function takeLast<T>(count: number): MonoTypeOperatorFunction<T> {
               count < buffer.length && buffer.shift();
             },
             () => {
+              console.log('complete takeLast');
               // The source completed, we now know what are last values
               // are, emit them in the order they were received.
               for (const value of buffer) {

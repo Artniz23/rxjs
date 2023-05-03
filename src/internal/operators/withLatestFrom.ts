@@ -78,8 +78,10 @@ export function withLatestFrom<T, R>(...inputs: any[]): OperatorFunction<T, R | 
         createOperatorSubscriber(
           subscriber,
           (value) => {
+            console.log('interval', value);
             otherValues[i] = value;
             if (!ready && !hasValue[i]) {
+              console.log('ready', ready);
               // If we're not ready yet, flag to show this observable has emitted.
               hasValue[i] = true;
               // Intentionally terse code.

@@ -134,6 +134,7 @@ function fromInteropObservable<T>(obj: any) {
  * @param array The array to emit values from
  */
 export function fromArrayLike<T>(array: ArrayLike<T>) {
+  console.log('args', array);
   return new Observable((subscriber: Subscriber<T>) => {
     subscribeToArray(array, subscriber);
   });

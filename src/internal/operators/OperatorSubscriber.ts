@@ -45,7 +45,7 @@ export class OperatorSubscriber<T> extends Subscriber<T> {
    */
   constructor(
     destination: Subscriber<any>,
-    onNext?: (value: T) => void,
+    public onNext?: (value: T) => void,
     onComplete?: () => void,
     onError?: (err: any) => void,
     private onFinalize?: () => void,
@@ -102,6 +102,7 @@ export class OperatorSubscriber<T> extends Subscriber<T> {
   }
 
   override unsubscribe() {
+    console.log('unsubscribe', this.onNext);
     if (!this.shouldUnsubscribe || this.shouldUnsubscribe()) {
       const { closed } = this;
       super.unsubscribe();

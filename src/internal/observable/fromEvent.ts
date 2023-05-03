@@ -273,7 +273,10 @@ function doSubscribe(handler: (...args: any[]) => void, subscriber: Subscriber<a
     throw new TypeError('Invalid event target');
   }
   subTarget[addMethod](eventName, handler, options);
-  subscriber.add(() => subTarget[removeMethod](eventName, handler, options));
+  subscriber.add(() => {
+    console.log('unsub event');
+    return subTarget[removeMethod](eventName, handler, options)
+  });
 }
 
 function getRegistryMethodNames(target: any) {

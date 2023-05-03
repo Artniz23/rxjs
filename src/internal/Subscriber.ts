@@ -93,6 +93,7 @@ export class Subscriber<T> extends Subscription implements Observer<T> {
   }
 
   override unsubscribe(): void {
+    console.log('subscriber unsubscribe', this.destination)
     if (!this.closed) {
       this.isStopped = true;
       super.unsubscribe();
